@@ -5,6 +5,7 @@ const merge = require('webpack-merge')
 var os = require('os');
 var ifaces = os.networkInterfaces();
 let hostAddress = ''
+// console.log(process.env,44444)
 // console.log(ifaces,88888888)
 // 获取IPV4 IP地址 作用于devSever
 Object.keys(ifaces).forEach(function (ifname) {
@@ -27,16 +28,17 @@ Object.keys(ifaces).forEach(function (ifname) {
 });
 console.log('本地ip地址：',hostAddress)
 module.exports = merge(baseConfig, {
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
+    devtool: 'cheap-module-source-map',
     devServer: {
         hot: true,
         // host: '0.0.0.0', // 我们可以允许我们用任意方式进行访问（127.0.0.1，localhost, 本机ip）
-        host:  hostAddress, // IP地址
+        // host:  hostAddress, // IP地址
         port: 8600, 
         open: true,
         progress: true, //打包进度反馈
-        // contentBase: './dist',  //默认webpack-dev-server会为根文件夹提供本地服务器，如果想为另外一个目录下的文件提供本地服务器，应该在这里设置其所在目录（本例设置到“public”目录）
-        // historyApiFallback: true,  // 所有404的请求不跳转 在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
+        contentBase: './dist',  //默认webpack-dev-server会为根文件夹提供本地服务器，如果想为另外一个目录下的文件提供本地服务器，应该在这里设置其所在目录（本例设置到“public”目录）
+        historyApiFallback: true,  // 所有404的请求不跳转 在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
         publicPath: '/',
         overlay: {  // 错误提醒弹窗小遮层
             errors: true, //只显示error
@@ -68,10 +70,19 @@ module.exports = merge(baseConfig, {
                 options: {
                     sourceMap: true,
                     plugins: (loader) => [
+                        // require('postcss-flexbugs-fixes'),
                         // require('postcss-import')({ root: loader.resourcePath }),
                         // require('postcss-cssnext')(),
                         // require('cssnano')(),
-                        require('autoprefixer')({ browsers: 'last 5 version' })
+                        require('autoprefixer')({
+                            browsers: [
+                                '>1%',
+                                'last 4 versions',
+                                'Firefox ESR',
+                                'not ie < 9', // React doesn't support IE8 anyway })
+                            ],
+                            flexbox: 'no-2009',
+                        })
                     ]
                 }
             },
@@ -85,7 +96,16 @@ module.exports = merge(baseConfig, {
         },]
     },
     plugins:[
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development')
+        }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+    // Turn off performance hints during development because we don't do any
+    // splitting or minification in interest of speed. These warnings become
+    // cumbersome.
+    // performance: {
+    //     hints: false,
+    // },
 })
