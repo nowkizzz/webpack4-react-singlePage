@@ -5,6 +5,7 @@ import Icon from './assets/1.png'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 // import { Router, Route } from 'react-router-dom'
 import Main from './pages/index/Index.jsx'
+import Foot from './pages/index/Foot.jsx'
 const About = () => (
     <div>
         <h2>About</h2>
@@ -37,8 +38,9 @@ class App extends Component {
                     <img src={Icon} alt="" height="50" width="50" /> */}
                     <Route exact path="/about" component={About} />
                     123
-                    <Route path="/" component={Main} />
+                    <Route path="/" exact component={Main} />
                     <Route path="/tab" component={TabNav} />
+                    <Route path="/foot" component={Foot}></Route>                    
                 </div>
             </Router>
         )

@@ -7,9 +7,10 @@ function resolve(dir) {
 }
 
 module.exports = {
+    // entry: ["babel-polyfill", path.resolve(__dirname, 'src/index.js')],
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
-        filename: 'bundle.js',
+        filename: '[name].[hash].js',
         path: path.resolve(__dirname, 'dist'),
     },
     resolve: {
@@ -19,15 +20,22 @@ module.exports = {
         }
     },
     module: {
-        rules: [{
-                test: /.jsx$/,
-                loader: 'babel-loader'
-            }, {
-                test: /.(js)$/,
+        rules: [
+            // {
+            //     test: /.jsx$/,
+            //     loader: 'babel-loader',
+            //     exclude: /node_modules/
+            // }, 
+            {
+                test: /\.(js|jsx)$/,
                 loader: 'babel-loader',
                 exclude: [
                     path.resolve(__dirname, 'node_modules') // 由于node_modules都是编译过的文件， 不让babel处理接下来的文件
-                ]
+                ],
+                // query: {
+                //     plugins: ['transform-runtime'],
+                //     presets: ['react', 'es2015']
+                // }
             },
             // {
             //     test: /\.css$/,

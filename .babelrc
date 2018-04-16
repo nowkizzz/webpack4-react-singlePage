@@ -1,19 +1,15 @@
 {
     "presets": [
-        "react",
         [
             "env", {
                 "targets": {
-                    "browsers": ["last 2 versions", "safari >= 7"]
+                    "browsers": ["last 5 versions", "safari >= 7"]
                 }
             }
-        ]
+        ],
+        "react"
     ],
     "plugins": [
-        ["transform-runtime", {
-            "helpers": false, 
-            "polyfill": false,
-            "regenerator": true
-        }]
+        ["transform-runtime"]
     ]
 }
