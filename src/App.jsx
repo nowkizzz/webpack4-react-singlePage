@@ -38,6 +38,7 @@ class App extends Component {
                     <img src={Icon} alt="" height="50" width="50" /> */}
                     <Route exact path="/about" component={About} />
                     123
+                    <img src={Icon} alt=""/>
                     <Route path="/" exact component={Main} />
                     <Route path="/tab" component={TabNav} />
                     <Route path="/foot" component={Foot}></Route>                    

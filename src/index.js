@@ -1,8 +1,9 @@
+// 兼容问题放在最上头 可兼容代码
+import 'core-js/es6/set'
+import 'core-js/es6/map'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App.jsx'
-import 'core-js/es6/map'
-import 'core-js/es6/set'
 import {createStore} from 'redux'
 import rootReducer from './reducers/index'
 import { Provider } from 'react-redux'

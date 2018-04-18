@@ -52,7 +52,7 @@ class Tab extends Component {
         return (
             <div className="homePage">Tab-{this.state.text}
                 <button className="btn" onClick={(e) => this.toPage()}>跳转</button>
-
+                    
             </div>
         )
     }

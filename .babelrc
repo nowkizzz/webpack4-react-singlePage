@@ -3,7 +3,7 @@
         [
             "env", {
                 "targets": {
-                    "browsers": ["last 5 versions", "safari >= 7"]
+                    "browsers": ["last 5 versions", "safari >= 7", "not ie <= 8"]
                 }
             }
         ],
